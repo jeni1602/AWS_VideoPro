@@ -1,33 +1,21 @@
-﻿@*  @model List<string>
-
-<h2>Uploaded Videos</h2>
-
-@foreach (var video in Model)
-{
-    <div>
-        <h3>@video</h3>
-        <video width="320" height="240" controls>
-            <source src="~/uploads/@video" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-}
-
-<p>© @DateTime.Now.Year - Your Application</p> *@
-
-@model List<string> 
+﻿ @model List<string>
 
 <h1>Uploaded Videos</h1>
 
 @foreach (var video in Model)
 {
-    <p>@video</p>
-    <video width="320" height="240" controls>
-        <source src="@Url.Content("~/uploads/" + video)" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <div>
+        <p>@video</p>
+        <video width="320" height="240" controls>
+            <source src="@Url.Content("~/uploads/" + video)" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <form method="post" action="/Home/DeleteVideo">
+            <input type="hidden" name="fileName" value="@video" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+    <br />
 }
 
-<br />
 <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Back</a>
-

@@ -9,7 +9,7 @@ using Amazon.S3;
 using Amazon.S3.Transfer;
 using Xabe.FFmpeg;
 
-namespace WebApplication5.Controllers
+namespace AWSS3_Pro.Controllers
 {
     public class HomeController : Controller
     {
@@ -23,7 +23,7 @@ namespace WebApplication5.Controllers
 
             var s3Config = new AmazonS3Config
             {
-                RegionEndpoint = Amazon.RegionEndpoint.EUNorth1,
+                 RegionEndpoint = Amazon.RegionEndpoint.EUNorth1,
                 ServiceURL = "https://s3.eu-north-1.amazonaws.com"
             };
 
@@ -93,5 +93,25 @@ namespace WebApplication5.Controllers
             var videos = Directory.GetFiles(_uploadsDir, "*.*").Select(Path.GetFileName).ToList();
             return View(videos);
         }
+
+        public async Task<IActionResult> DeleteVideo(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return BadRequest("File name not provided");
+            }
+
+            var filePath = Path.Combine(_uploadsDir, fileName);
+
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+
+                await _s3Client.DeleteObjectAsync("jeniawsbucket16", fileName);
+            }
+
+            return RedirectToAction("UploadedVideos");
+        }
+
     }
 }

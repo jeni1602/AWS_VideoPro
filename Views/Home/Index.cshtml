@@ -1,25 +1,4 @@
-﻿@* @{
-    ViewData["Title"] = "Upload Video";
-}
-
-<h2>Upload Video</h2>
-
-<form method="post" enctype="multipart/form-data" action="/Home/UploadFiles">
-    <div class="form-group">
-        <label for="file">Choose Video:</label>
-        <input type="file" name="file" id="file" class="form-control-file" />
-    </div>
-    <br />
-    <div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-</form>
-
-<form method="get" action="/Home/UploadedVideos">
-    <button type="submit" class="btn btn-secondary mt-2">View Uploaded Videos</button>
-</form> *@
-
-@{
+﻿@{
     ViewData["Title"] = "Upload Video";
 }
 
@@ -41,5 +20,6 @@
         <button type="submit" class="btn btn-secondary">View Uploaded Videos</button>
     </form>
 </div>
+
 
 
